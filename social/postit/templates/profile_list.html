@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Profile List</h1>
+<br/>
+
+{% if profiles%}
+    {%for profile in profiles %}
+        <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Username: {{ profile.user.username }}</h5>
+                <p class="card-text">Link: @{{ profile.user.username|lower }}</p>
+            </div>
+        </div>
+
+
+        <br/><br/>
+    {% endfor %}
+
+{% endif %}
+
+{% endblock %}
