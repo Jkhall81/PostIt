@@ -1,12 +1,25 @@
 from django.shortcuts import render, redirect
 from .models import Profile, Post
 from django.contrib import messages
+from .forms import PostForm
 
 
 def home(request):
     if request.user.is_authenticated:
+        form = PostForm(request.POST or None)
+        if request.method == 'POST':
+            if form.is_valid():
+                post = form.save(commit=False)
+                post.user = request.user
+                post.save()
+                messages.success(request, 'Your post was successfuly!')
+                return redirect('home')
+
         posts = Post.objects.all().order_by('-created_at')
-    return render(request, 'home.html', {'posts': posts})
+        return render(request, 'home.html', {'posts': posts, 'form': form})
+    else:
+        posts = Post.objects.all().order_by('-created_at')
+        return render(request, 'home.html', {'posts': posts})
 
 
 def profile_list(request):
