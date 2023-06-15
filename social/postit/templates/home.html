@@ -2,6 +2,11 @@
 
 {% block content %}
 
-<h1>Home</h1>
+<h1>Posts!</h1>
+{% for post in posts %}
+<div class="alert alert-dark" role="alert">
+    {{ post }}<br/><br/>
+    </div>
+{% endfor %}
 
 {% endblock %}
