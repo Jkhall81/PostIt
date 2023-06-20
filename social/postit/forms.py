@@ -15,4 +15,4 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        exclude = ('User',)
+        fields = ('body',)
