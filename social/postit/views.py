@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Profile, Post
 from django.contrib import messages
 from .forms import PostForm
+from django.contrib.auth import authenticate, login, logout
 
 
 def home(request):
@@ -54,3 +55,11 @@ def profile(request, pk):
     else:
         messages.success(request, 'You must be logged in to view this page!')
         return redirect('home')
+
+
+def login_user(request):
+    return render(request, 'login.html', {})
+
+
+def logout_user(request):
+    pass

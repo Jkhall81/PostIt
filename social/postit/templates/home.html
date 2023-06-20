@@ -8,8 +8,11 @@
 <h1>Posts!</h1>
 {% for post in posts %}
 <div class="alert alert-dark" role="alert">
-    {{ post }}<br/><br/>
-    </div>
+    {{ post.body }}
+    <small class="text-muted">
+    {{ post.created_at}} By {{ post.user.username }}
+    </small>
+    </div><br/><br/>
 {% endfor %}
 
         </div>
@@ -18,7 +21,7 @@
             {% if form %}
             <form method="POST">
                 {% csrf_token %}
-                {% form.as_p %}
+                {{ form.as_p }}
 
   <button type="submit" class="btn btn-secondary">Post</button>
 </form>
