@@ -3,6 +3,8 @@ from .models import Profile, Post
 from django.contrib import messages
 from .forms import PostForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
+from django import forms
 
 
 def home(request):
@@ -81,3 +83,7 @@ def logout_user(request):
     logout(request)
     messages.success(request, 'You have been logged out!')
     return redirect('home')
+
+
+def register_user(request):
+    return render(request, 'register.html', {})
