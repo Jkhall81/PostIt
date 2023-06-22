@@ -19,12 +19,17 @@
             </div>
 
             <div class="col-4">
+                <!-- Checking to see if user has a profile image -->
+                {% if profile.profile_image %}
+                    <img class="img-fluid rounded" src="{{ profile.profile_image.url }}" alt="profile image" />
+                {% endif %}
+                <br/><br/>
                 <div class="card">
                   <h5 class="card-header">Follows</h5>
                   <div class="card-body">
                     <p class="card-text">
                         {% for following in profile.follows.all %}
-                <a href="{% url 'profile' following.user.id %}">@{{ following }}<a/><br/>
+                        <a href="{% url 'profile' following.user.id %}">@{{ following }}</a><br/>
             {% endfor %}
                     </p>
                   </div>
@@ -35,7 +40,7 @@
                   <div class="card-body">
                     <p class="card-text">
                         {% for following in profile.followed_by.all %}
-                <a href="{% url 'profile' following.user.id %}">@{{ following }}<a/><br/>
+                        <a href="{% url 'profile' following.user.id %}">@{{ following }}</a><br/>
             {% endfor %}
                     </p>
                   </div>
