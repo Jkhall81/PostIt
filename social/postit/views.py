@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import Profile, Post
+from .models import Profile, Post, User
 from django.contrib import messages
-from .forms import PostForm, SignUpForm
+from .forms import PostForm, SignUpForm, UserCreationForm
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm
 from django import forms
 
 
@@ -101,3 +100,19 @@ def register_user(request):
             return redirect('home')
 
     return render(request, 'register.html', {'form': form})
+
+
+def update_user(request):
+    if request.user.is_authenticated:
+        current_user = User.objects.get(id=request.user.id)
+        form = SignUpForm(request.POST or None, instance=current_user)
+        if form.is_valid():
+            form.save()
+            login(request, current_user)
+            messages.success(request, 'Your profile has been updated successfully!')
+            return redirect('home')
+
+        return render(request, 'update_user.html', {'form': form})
+    else:
+        messages.success(request, 'You must be logged in to view this page!')
+        return redirect('home')
