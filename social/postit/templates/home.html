@@ -23,7 +23,13 @@
                             <br/>
                             {{ post.body }}<br/>
                             <small class="text-muted">
-                                {{ post.created_at}} By @{{ post.user.username }}
+                                {{ post.created_at}} By @{{ post.user.username }}<br/>
+                                {{ post.number_of_likes }} Likes -
+                                {% if user in post.likes.all %}
+                                <a href="{% url 'post_like' post.id %}">👎🏿</a>
+                                {% else %}
+                                <a href="{% url 'post_like' post.id %}">👍🏽</a>
+                                {% endif %}
                             </small>
                         </div>
                         <br/><br/>
