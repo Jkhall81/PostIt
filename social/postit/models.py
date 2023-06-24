@@ -13,7 +13,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return(
+        return (
             f'{self.user} '
             f'({self.created_at:%Y-%m-%d %H:%M}): '
             f'{self.body}...'
@@ -32,7 +32,6 @@ class Profile(models.Model):
 
     date_modified = models.DateTimeField(User, auto_now=True)
     profile_image = models.ImageField(null=True, blank=True, upload_to='images/')
-
 
     def __str__(self):
         return self.user.username

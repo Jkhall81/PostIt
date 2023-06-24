@@ -7,13 +7,13 @@
     <br/>
 
     <!-- Need this enctype for files -->
-<form method="POST" action="" enctype="multipart/form-data">
-    {% csrf_token %}
-    <!-- two forms on the page -->
-    {{ user_form.as_p }}
-    {{ profile_form.as_p }}
-    <br/>
-    <button type="submit" class="btn btn-secondary">Update Profile</button>
-</form>
+    <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!-- two forms on the page -->
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        <br/>
+        <button type="submit" class="btn btn-secondary">Update Profile</button>
+    </form>
 </div>
 {% endblock %}
