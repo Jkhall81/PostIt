@@ -107,8 +107,10 @@ def update_user(request):
         current_user = User.objects.get(id=request.user.id)
         profile_user = Profile.objects.get(user__id=request.user.id)
 
-        user_form = SignUpForm(request.POST or None, request.FILES or None, instance=current_user)
-        profile_form = ProfilePicForm(request.POST or None, request.FILES or None, instance=profile_user)
+        user_form = SignUpForm(request.POST or None, request.FILES or None,
+                               instance=current_user)
+        profile_form = ProfilePicForm(request.POST or None, request.FILES or None,
+                                      instance=profile_user)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
@@ -116,7 +118,8 @@ def update_user(request):
             messages.success(request, 'Your profile has been updated successfully!')
             return redirect('home')
 
-        return render(request, 'update_user.html', {'user_form': user_form, 'profile_form': profile_form})
+        return render(request, 'update_user.html',
+                      {'user_form': user_form, 'profile_form': profile_form})
     else:
         messages.success(request, 'You must be logged in to view this page!')
         return redirect('home')
@@ -129,8 +132,17 @@ def post_like(request, pk):
             post.likes.remove(request.user)
         else:
             post.likes.add(request.user)
-        return redirect('home')
+        return redirect(request.META.get('HTTP_REFERER'))
 
     else:
         messages.success(request, 'You must be logged in to view that page!')
+        return redirect('home')
+
+
+def post_show(request, pk):
+    post = get_object_or_404(Post, id=pk)
+    if post:
+        return render(request, 'show_post.html', {'post': post})
+    else:
+        messages.success(request, 'That post does not exist!')
         return redirect('home')

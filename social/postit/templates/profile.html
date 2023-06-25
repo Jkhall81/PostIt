@@ -17,19 +17,26 @@
                         <div class="col-2">
                             {% if profile.profile_image %}
                             <img src="{{ profile.profile_image.url }}" width=100
-                                 height=100 class="img-fluid" alt="{{ profile.user.username }}"/>
+                                 height=100 class="img-fluid"
+                                 alt="{{ profile.user.username }}"/>
                             {% else %}
                             <img src="{% static 'images/profile.jpg' %}" width=100
-                                 height=100 class="img-fluid" alt="{{ profile.user.username }}"/>
+                                 height=100 class="img-fluid"
+                                 alt="{{ profile.user.username }}"/>
                             {% endif %}
                         </div>
                         <div class="col-10">
 
                             {{ post.body }}
                             <small class="text-muted">
-                                ({{ post.created_at }})
-                                By
-                                @{{ post.user.username }}
+                                ({{ post.created_at }}) By
+                                @{{ post.user.username }}<br/>
+                                {{ post.number_of_likes }} Likes -
+                                {% if user in post.likes.all %}
+                                <a href="{% url 'post_like' post.id %}">👎🏿</a>
+                                {% else %}
+                                <a href="{% url 'post_like' post.id %}">👍🏽</a>
+                                {% endif %}
                             </small>
                         </div>
                     </div>
@@ -44,7 +51,8 @@
         <div class="col-4">
             <!-- Checking to see if user has a profile image -->
             {% if profile.profile_image %}
-            <img class="img-fluid rounded" src="{{ profile.profile_image.url }}" alt="profile image"/>
+            <img class="img-fluid rounded" src="{{ profile.profile_image.url }}"
+                 alt="profile image"/>
             {% endif %}
             <br/><br/>
             <div class="card">
@@ -52,7 +60,9 @@
                 <div class="card-body">
                     <p class="card-text">
                         {% for following in profile.follows.all %}
-                        <a href="{% url 'profile' following.user.id %}">@{{ following }}</a><br/>
+                        <a href="{% url 'profile' following.user.id %}">
+                            @{{ following.user.username }}
+                        </a><br/>
                         {% endfor %}
                     </p>
                 </div>
@@ -63,7 +73,9 @@
                 <div class="card-body">
                     <p class="card-text">
                         {% for following in profile.followed_by.all %}
-                        <a href="{% url 'profile' following.user.id %}">@{{ following }}</a><br/>
+                        <a href="{% url 'profile' following.user.id %}">
+                            @{{ following.user.username }}
+                        </a><br/>
                         {% endfor %}
                     </p>
                 </div>
@@ -73,11 +85,13 @@
             <form method="POST">
                 {% csrf_token %}
                 {% if profile in user.profile.follows.all %}
-                <button class="btn btn-outline-danger" name="follow" value="unfollow" type="submit">
+                <button class="btn btn-outline-danger" name="follow" value="unfollow"
+                        type="submit">
                     Unfollow @{{ profile.user.username }}
                 </button>
                 {% else %}
-                <button class="btn btn-outline-primary" name="follow" value="follow" type="submit">
+                <button class="btn btn-outline-primary" name="follow" value="follow"
+                        type="submit">
                     follow @{{ profile.user.username }}
                 </button>
 
