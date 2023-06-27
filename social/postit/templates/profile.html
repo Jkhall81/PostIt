@@ -52,8 +52,24 @@
         <div class="col-4">
             <!-- Checking to see if user has a profile image -->
             {% if profile.profile_image %}
-            <img class="img-fluid rounded" src="{{ profile.profile_image.url }}"
+            <img class="img-fluid rounded mb-2" src="{{ profile.profile_image.url }}"
                  alt="profile image"/>
+            {% endif %}
+            {% if profile.homepage_link %}
+            <a href="{{ profile.homepage_link }}" class="mx-2" target="new">
+                <i class="fa-solid fa-link fa-beat"></i></a>
+            {% endif %}
+            {% if profile.facebook_link %}
+            <a href="{{ profile.facebook_link }}" class="mx-2" target="new">
+                <i class="fa-brands fa-facebook fa-beat"></i></a>
+            {% endif %}
+            {% if profile.instagram_link %}
+            <a href="{{ profile.instagram_link }}" class="mx-2" target="new">
+                <i class="fa-brands fa-instagram fa-beat"></i></a>
+            {% endif %}
+            {% if profile.linkedin_link %}
+            <a href="{{ profile.linkedin_link }}" class="mx-2" target="new">
+                <i class="fa-brands fa-linkedin fa-beat"></i></a>
             {% endif %}
             <br/><br/>
             <div class="card">
