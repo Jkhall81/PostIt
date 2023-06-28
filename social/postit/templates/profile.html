@@ -72,6 +72,10 @@
                 <i class="fa-brands fa-linkedin fa-beat"></i></a>
             {% endif %}
             <br/><br/>
+
+            {% if profile.profile_bio %}
+            <p align="justify" class="mb-4">{{ profile.profile_bio }}</p>
+            {% endif %}
             <div class="card">
                 <h5 class="card-header">Follows</h5>
                 <div class="card-body">
