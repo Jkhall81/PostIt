@@ -13,9 +13,6 @@
                 </li>
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'profile' request.user.id %}">My Profile</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                 </li>
                 {% else %}
@@ -53,10 +50,10 @@
                 <li class="nav-link navbar-brand">
                     <a href="{% url 'profile' request.user.id %}">
                         {% if user.profile.profile_image %}
-                        <img src="{{ user.profile.profile_image.url }}" class="img-fluid rounded-circle"
+                        <img src="{{ user.profile.profile_image.url }}" class="img-fluid"
                              width=30/>
                         {% else %}
-                        <img src="{% static '/profile.jpg' %}" class="img-fluid rounded-circle" alt="generic profile pic" width=30/>
+                        <img src="{% static '/profile.jpg' %}" class="img-fluid" alt="generic profile pic" width=30/>
                         {% endif %}
                     </a>
                 </li>
