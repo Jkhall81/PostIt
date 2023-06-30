@@ -5,8 +5,12 @@
 <div class="container text-center">
     <div class="row">
         <div class="col-8">
+
+            <!-- H1 -->
             <h1>Posts!</h1>
             {% for post in posts %}
+
+            <!-- Posts displayed on homepage -->
             <div class="alert alert-dark" role="alert">
                 <div class="container">
                     <div class="row">
@@ -42,6 +46,8 @@
             {% endfor %}
 
         </div>
+
+        <!-- Post Form -->
         <div class="col-4">
             <br/><br/>
             {% if form %}
@@ -49,6 +55,7 @@
                 {% csrf_token %}
                 {{ form.as_p }}
 
+                <!-- Post Button -->
                 <button type="submit" class="btn btn-secondary">Post</button>
             </form>
             {% endif %}

@@ -11,6 +11,9 @@
             <br/>
             {% if posts %}
             {% for post in posts %}
+
+            <!--  Posts on profile Page  -->
+
             <div class="alert alert-dark" role="alert">
                 <div class="container">
                     <div class="row">
@@ -50,7 +53,7 @@
         </div>
 
         <div class="col-4">
-            <!-- Checking to see if user has a profile image -->
+            <!-- Profile Image and Social Media Links -->
             {% if profile.profile_image %}
             <img class="img-fluid rounded mb-2" width=300 src="{{ profile.profile_image.url }}"
                  alt="profile image"/>
@@ -73,9 +76,12 @@
             {% endif %}
             <br/><br/>
 
+            <!--  User Bio Section  -->
             {% if profile.profile_bio %}
             <p align="justify" class="mb-4">{{ profile.profile_bio }}</p>
             {% endif %}
+
+            <!--  Follows Card  -->
             <div class="card">
                 <h5 class="card-header">Follows</h5>
                 <div class="card-body">
@@ -90,6 +96,8 @@
             </div>
             <br/>
             <div class="card">
+
+                <!-- Followed By Card -->
                 <h5 class="card-header">Followed By</h5>
                 <div class="card-body">
                     <p class="card-text">
@@ -106,6 +114,8 @@
             <form method="POST">
                 {% csrf_token %}
                 {% if profile in user.profile.follows.all %}
+
+                <!-- Follow / Unfollow Button -->
                 <button class="btn btn-outline-danger" name="follow" value="unfollow"
                         type="submit">
                     Unfollow @{{ profile.user.username }}
@@ -120,6 +130,8 @@
 
             </form>
             <br/>
+            
+            <!-- Update Profile Button -->
             {% if request.user.id == profile.user.id %}
             <a href="{% url 'update' %}" class="btn btn-secondary">Update Profile</a>
             {% endif %}
