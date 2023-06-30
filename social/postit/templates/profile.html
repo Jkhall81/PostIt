@@ -52,7 +52,7 @@
         <div class="col-4">
             <!-- Checking to see if user has a profile image -->
             {% if profile.profile_image %}
-            <img class="img-fluid rounded mb-2" src="{{ profile.profile_image.url }}"
+            <img class="img-fluid rounded mb-2" width=300 src="{{ profile.profile_image.url }}"
                  alt="profile image"/>
             {% endif %}
             {% if profile.homepage_link %}
