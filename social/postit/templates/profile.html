@@ -89,7 +89,9 @@
                         {% for following in profile.follows.all %}
                         <a href="{% url 'profile' following.user.id %}">
                             @{{ following.user.username }}
-                        </a><br/>
+                        </a><a href="{% url 'unfollow' following.user.id %}">
+                        <i class="fa fa-undo" aria-hidden="true"></i>
+                    </a><br/>
                         {% endfor %}
                     </p>
                 </div>
@@ -130,7 +132,7 @@
 
             </form>
             <br/>
-            
+
             <!-- Update Profile Button -->
             {% if request.user.id == profile.user.id %}
             <a href="{% url 'update' %}" class="btn btn-secondary">Update Profile</a>
