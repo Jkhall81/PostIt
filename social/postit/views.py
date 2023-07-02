@@ -45,6 +45,18 @@ def unfollow(request, pk):
         return redirect('home')
 
 
+def follow(request, pk):
+    if request.user.is_authenticated:
+        profile = Profile.objects.get(user_id=pk)
+        request.user.profile.follows.remove(profile)
+        request.user.profile.save()
+        messages.success(request, f'You have successfully followed {profile.user.username}')
+        return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        messages.success(request, 'You must be logged in to view this page!')
+        return redirect('home')
+
+
 def profile(request, pk):
     if request.user.is_authenticated:
         profile = Profile.objects.get(user_id=pk)
@@ -65,6 +77,20 @@ def profile(request, pk):
             current_user_profile.save()
 
         return render(request, 'profile.html', {'profile': profile, 'posts': posts})
+    else:
+        messages.success(request, 'You must be logged in to view this page!')
+        return redirect('home')
+
+
+def followers(request, pk):
+    if request.user.is_authenticated:
+        if request.user.id == pk:
+
+            profiles = Profile.objects.get(user_id=pk)
+            return render(request, 'followers.html', {'profiles': profiles})
+        else:
+            messages.success(request, "That's not your profile page!")
+            return redirect('home')
     else:
         messages.success(request, 'You must be logged in to view this page!')
         return redirect('home')
