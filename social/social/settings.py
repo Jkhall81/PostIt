@@ -21,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-fqnb$@ck$_ig9+y6l(q44f5wp41c=0^8q_-97heb_r&xcmqjf2'
+SECRET_KEY = os.getenv('SECRET')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -76,8 +76,7 @@ WSGI_APPLICATION = 'social.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.parse(
-        'postgres://postit_i0ql_user:MUpO4YiPQaHvIgWrXiitkqqpXggruUm6@dpg-cic6u015rnuk9qbgtksg-a.oregon-postgres.render.com/postit_i0ql')
+    'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
 }
 
 # Password validation
