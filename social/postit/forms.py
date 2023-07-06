@@ -40,6 +40,22 @@ class PostForm(forms.ModelForm):
         fields = ('body',)
 
 
+class ReplyForm(forms.ModelForm):
+    body = forms.CharField(required=True,
+                           widget=forms.widgets.Textarea(
+                               attrs={
+                                   'placeholder': 'Enter your reply text!',
+                                   'class': 'form-control',
+                               }
+                           ),
+                           label='',
+                           )
+
+    class Meta:
+        model = Post
+        fields = ('body',)
+
+
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(label='',
                              widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email Address'}))

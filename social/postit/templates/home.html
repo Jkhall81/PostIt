@@ -42,13 +42,25 @@
                                 {% endif %}
                                 <a href="{% url 'post_show' post.id %}">share</a>
                             </small>
+                            <a class="position-absolute bottom-0 end-0 mb-2 me-3" href="{% url 'reply' post.id %}">
+                                Reply
+                            </a>
+                            <!-- Replies -->
+                            {% if post.replies.all %}
+                            {% for reply in post.replies.all %}
+                            <div class="reply">
+                                <p>{{ reply.body }}</p>
+                                <small>{{ reply.user.username }} - {{ reply.created_at }}</small>
+                            </div>
+
+                            {% endfor %}
+                            {% endif %}
                         </div>
                         <br/><br/>
                     </div>
                 </div>
             </div>
             {% endfor %}
-
         </div>
 
         <!-- Post Form -->

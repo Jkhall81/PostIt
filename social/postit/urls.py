@@ -14,4 +14,5 @@ urlpatterns = [
     path('post_show/<int:pk>', views.post_show, name='post_show'),
     path('unfollow/<int:pk>', views.unfollow, name='unfollow'),
     path('follow/<int:pk>', views.follow, name='follow'),
+    path('reply/<int:pk>', views.reply, name='reply'),
 ]

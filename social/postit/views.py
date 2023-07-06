@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Profile, Post, User
+from .models import Profile, Post, User, Reply
 from django.contrib import messages
-from .forms import PostForm, SignUpForm, UserCreationForm, ProfilePicForm
+from .forms import PostForm, SignUpForm, UserCreationForm, ProfilePicForm, ReplyForm
 from django.contrib.auth import authenticate, login, logout
 from django import forms
 
@@ -18,7 +18,8 @@ def home(request):
                 return redirect('home')
 
         posts = Post.objects.all().order_by('-created_at')
-        return render(request, 'home.html', {'posts': posts, 'form': form})
+        replies = Reply.objects.filter(post__in=posts).order_by('-created_at')
+        return render(request, 'home.html', {'posts': posts, 'form': form, 'replies': replies})
     else:
         posts = Post.objects.all().order_by('-created_at')
         return render(request, 'home.html', {'posts': posts})
@@ -181,6 +182,24 @@ def post_show(request, pk):
     post = get_object_or_404(Post, id=pk)
     if post:
         return render(request, 'show_post.html', {'post': post})
+    else:
+        messages.success(request, 'That post does not exist!')
+        return redirect('home')
+
+
+def reply(request, pk):
+    if request.user.is_authenticated:
+        form = ReplyForm(request.POST or None)
+        if request.method == 'POST':
+            if form.is_valid():
+                reply = form.save(commit=False)
+                reply.user = request.user
+                reply.save()
+                messages.success(request, 'Your reply was successfuly!')
+                return redirect('home')
+    post = get_object_or_404(Post, id=pk)
+    if post:
+        return render(request, 'reply.html', {'post': post, 'form': form})
     else:
         messages.success(request, 'That post does not exist!')
         return redirect('home')

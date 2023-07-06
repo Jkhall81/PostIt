@@ -3,6 +3,16 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
 
+class Reply(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey('Post', on_delete=models.CASCADE)
+    body = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Reply by {self.user.username} on {self.post}.'
+
+
 # create post model
 class Post(models.Model):
     user = models.ForeignKey(
@@ -12,6 +22,8 @@ class Post(models.Model):
     body = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User, related_name='post_like', blank=True)
+
+    replies = models.ManyToManyField(Reply, related_name='posts', blank=True)
 
     # keep track or count of likes
     def number_of_likes(self):
@@ -24,8 +36,9 @@ class Post(models.Model):
             f'{self.body}...'
         )
 
+    # Create user profile model
 
-# Create user profile model
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     follows = models.ManyToManyField(
@@ -38,7 +51,7 @@ class Profile(models.Model):
     date_modified = models.DateTimeField(User, auto_now=True)
     profile_image = models.ImageField(null=True, blank=True,
                                       upload_to='static/')
-    
+
     profile_bio = models.CharField(null=True, blank=True, max_length=500)
     homepage_link = models.CharField(null=True, blank=True, max_length=100)
     facebook_link = models.CharField(null=True, blank=True, max_length=100)
