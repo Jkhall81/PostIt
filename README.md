@@ -33,7 +33,7 @@ To set up the project locally follow these steps:
 
    ```
    cd PostIt
-   cd Social
+   cd social
    ```
    
 3. Install dependencies:
