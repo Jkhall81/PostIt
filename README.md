@@ -22,3 +22,8 @@ PostIt is a web application built with Django, PostgreSQL, and deployed on Rende
 ## Setup
 
 To set up the project locally follow these steps:
+
+1. Clone the repository:
+
+   ```
+   git clone 
