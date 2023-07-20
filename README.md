@@ -35,8 +35,42 @@ To set up the project locally follow these steps:
    cd PostIt
    cd Social
    ```
+   
 3. Install dependencies:
 
    ```
    pip install -r requirements.txt
+   ```
+
+4. Create a local database and apply database migrations (NOTE: if you wish to use a different database you can configure your settings.py file as needed):
+
+   ```
+   python manage.py makemigrations
+   python manage.py migrate
+   ```
+
+5. Run the development server:
+
+   ```
+   python manage.py runserver
+   ```
+
+## Dependencies
+
+- asgiref==3.7.2
+- dj-config-url==0.1.1
+- dj-database-url==2.0.0 
+- Django==4.2.2
+- gunicorn==20.1.0
+- Pillow==9.5.0
+- psycopg2-binary==2.9.6
+- sqlparse==0.4.4
+- typing_extensions==4.6.3
+- tzdata==2023.3
+- whitenoise==6.5.0
+- fontawesomefree==6.4.0
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
    
